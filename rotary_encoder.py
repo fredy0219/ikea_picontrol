@@ -1,3 +1,6 @@
+import pigpio
+import time
+
 class decoder:
 
    """Class to decode mechanical rotary encoder pulses."""
