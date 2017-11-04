@@ -29,11 +29,11 @@ pi = pigpio.pi()
 
 pi.set_mode(25, pigpio.INPUT) #reed switch
 pi.set_pull_up_down(25, pigpio.PUD_UP)
-cb_reed = pi.callback(25,EITHER_EDGE,cbf_reed)
+cb_reed = pi.callback(25,pigpio.EITHER_EDGE,cbf_reed)
 
 pi.set_mode(24, pigpio.INPUT) #touch sensor
 pi.set_pull_up_down(24, pigpio.PUD_UP)
-cb_touch = pi.callback(24,EITHER_EDGE,cbf_touch)
+cb_touch = pi.callback(24,pigpio.EITHER_EDGE,cbf_touch)
 
 decoder = rotary_encoder.decoder(pi,5,6,callback)
 
