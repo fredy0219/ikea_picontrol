@@ -43,8 +43,8 @@ try:
 		time.sleep(1)
 
 except KeyboardInterrupt:
-	decoder.cancle()
-	cb_reed.cancle()
+	decoder.cancel()
+	cb_reed.cancel()
 	cb_touch.cancel()
 	pi.stop()
 
