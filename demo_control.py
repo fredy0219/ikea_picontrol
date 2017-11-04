@@ -2,6 +2,8 @@ import pigpio
 import time
 import rotary_encoder
 
+pos = 0
+
 def callback(way):
     global pos
     pos += way
