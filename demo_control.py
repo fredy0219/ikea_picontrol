@@ -40,7 +40,7 @@ decoder = rotary_encoder.decoder(pi,5,6,callback)
 try:
 	while True:
 		# print ("Reed switch at gpio25 : {0} , Touch sensor at gpio24 : {1}".format(pi.read(25),pi.read(24)))
-		# time.sleep(1)
+		time.sleep(1)
 
 except KeyboardInterrupt:
 	decoder.cancle()
