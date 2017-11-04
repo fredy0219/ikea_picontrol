@@ -1,8 +1,11 @@
+import OSC
 import pigpio
 import time
 import rotary_encoder
 
 pos = 0
+c = OSC.OSCClient()
+c.connect(('192.168.2.105',12288))
 
 def callback(way):
     global pos
@@ -13,17 +16,34 @@ def cbf_reed(gpio,level,tick):
 
 	if level == 0: # change to low
 		print("Reed switch : low ")
+		oscmsg = OSC.OSCMessage()
+		oscmsg.setAddress("/Reed")
+		oscmsg.append("LOW")
+		c.send(oscmsg)
 
 	if level == 1: # change to high
 		print("Reed switch : high")
+		oscmsg = OSC.OSCMessage()
+		oscmsg.setAddress("/Reed")
+		oscmsg.append("HIGH")
+		c.send(oscmsg)
 
 def cbf_touch(gpio,level,tick):
 
 	if level == 0: # change to low
 		print("Touch sensor : low ")
+		oscmsg = OSC.OSCMessage()
+		oscmsg.setAddress("/Touch")
+		oscmsg.append("LOW")
+		c.send(oscmsg)
 
 	if level == 1: # change to high
 		print("Touch sensor : high")
+		oscmsg = OSC.OSCMessage()
+		oscmsg.setAddress("/Touch")
+		oscmsg.append("HIGH")
+		c.send(oscmsg)
+
 
 pi = pigpio.pi()
 
