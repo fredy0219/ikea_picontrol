@@ -11,7 +11,7 @@ def cbf_encoder(way):
 	global pos
 	pos += way
 	oscmsg = OSC.OSCMessage()
-	oscmsg.setAddress("/enconder")
+	oscmsg.setAddress("/Encoder")
 	oscmsg.append(pos)
 	c.send(oscmsg)
 	print("pos={}".format(pos))
