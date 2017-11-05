@@ -5,7 +5,7 @@ import rotary_encoder
 
 pos = 0
 c = OSC.OSCClient()
-c.connect(('192.168.2.105',12288))
+c.connect(('192.168.2.101',12289))
 
 def cbf_encoder(way):
 	global pos
@@ -13,6 +13,7 @@ def cbf_encoder(way):
 	oscmsg = OSC.OSCMessage()
 	oscmsg.setAddress("/enconder")
 	oscmsg.append(pos)
+	print("pos={}".format(pos))
 
 def cbf_reed(gpio,level,tick):
 
