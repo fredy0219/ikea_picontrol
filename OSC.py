@@ -1076,6 +1076,7 @@ class OSCClient(object):
 			try:
 				self.socket.connect(address)
 				self.client_address = address
+				print("Socket connect succeed !")
 			except socket.error, e:
 				print("SocketError: %s" % str(e))
 				continue
