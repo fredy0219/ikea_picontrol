@@ -30,7 +30,7 @@ def cbf_reed(gpio,level,tick):
 			oscmsg.append("LOW")
 			c.send(oscmsg)
 		except:
-			print("Send data fail.")
+			print("Send reed data fail.")
 
 	if level == 1: # change to high
 		print("Reed switch : high")
@@ -40,23 +40,29 @@ def cbf_reed(gpio,level,tick):
 			oscmsg.append("HIGH")
 			c.send(oscmsg)
 		except:
-			print("Send data fail.")
+			print("Send reed data fail.")
 
 def cbf_touch(gpio,level,tick):
 
 	if level == 0: # change to low
 		print("Touch sensor : low ")
-		oscmsg = OSC.OSCMessage()
-		oscmsg.setAddress("/Touch")
-		oscmsg.append("LOW")
-		c.send(oscmsg)
+		try:
+			oscmsg = OSC.OSCMessage()
+			oscmsg.setAddress("/Touch")
+			oscmsg.append("LOW")
+			c.send(oscmsg)
+		except:
+			print("Send touch data fail.")
 
 	if level == 1: # change to high
 		print("Touch sensor : high")
-		oscmsg = OSC.OSCMessage()
-		oscmsg.setAddress("/Touch")
-		oscmsg.append("HIGH")
-		c.send(oscmsg)
+		try:
+			oscmsg = OSC.OSCMessage()
+			oscmsg.setAddress("/Touch")
+			oscmsg.append("HIGH")
+			c.send(oscmsg)
+		except:
+			print("Send touch data fail.")
 
 
 pi = pigpio.pi()
