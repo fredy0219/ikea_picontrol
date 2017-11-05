@@ -1072,12 +1072,20 @@ class OSCClient(object):
 		  - host:  hostname of the remote OSC server,
 		  - port:  UDP-port the remote OSC server listens to.
 		"""
-		try:
-			self.socket.connect(address)
-			self.client_address = address
-		except socket.error, e:
-			self.client_address = None
-			raise OSCClientError("SocketError: %s" % str(e))
+		while True:
+			try:
+				self.socket.connect(address)
+				self.client_address = address
+			except socket.error, e:
+				print("SocketError: %s" % str(e))
+				continue
+			break
+		# try:
+		# 	self.socket.connect(address)
+		# 	self.client_address = address
+		# except socket.error, e:
+		# 	self.client_address = None
+		# 	raise OSCClientError("SocketError: %s" % str(e))
 		
 		if self.server != None:
 			self.server.return_port = address[1]
