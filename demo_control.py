@@ -10,27 +10,37 @@ c.connect(('192.168.2.101',12289))
 def cbf_encoder(way):
 	global pos
 	pos += way
-	oscmsg = OSC.OSCMessage()
-	oscmsg.setAddress("/Encoder")
-	oscmsg.append(pos)
-	c.send(oscmsg)
+
+	try:
+		oscmsg = OSC.OSCMessage()
+		oscmsg.setAddress("/Encoder")
+		oscmsg.append(pos)
+		c.send(oscmsg)
+	except:
+		print("Send data fail.")
 	print("pos={}".format(pos))
 
 def cbf_reed(gpio,level,tick):
 
 	if level == 0: # change to low
 		print("Reed switch : low ")
-		oscmsg = OSC.OSCMessage()
-		oscmsg.setAddress("/Reed")
-		oscmsg.append("LOW")
-		c.send(oscmsg)
+		try:
+			oscmsg = OSC.OSCMessage()
+			oscmsg.setAddress("/Reed")
+			oscmsg.append("LOW")
+			c.send(oscmsg)
+		except:
+			print("Send data fail.")
 
 	if level == 1: # change to high
 		print("Reed switch : high")
-		oscmsg = OSC.OSCMessage()
-		oscmsg.setAddress("/Reed")
-		oscmsg.append("HIGH")
-		c.send(oscmsg)
+		try:
+			oscmsg = OSC.OSCMessage()
+			oscmsg.setAddress("/Reed")
+			oscmsg.append("HIGH")
+			c.send(oscmsg)
+		except:
+			print("Send data fail.")
 
 def cbf_touch(gpio,level,tick):
 
