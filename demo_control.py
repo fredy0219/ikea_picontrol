@@ -7,10 +7,12 @@ pos = 0
 c = OSC.OSCClient()
 c.connect(('192.168.2.105',12288))
 
-def callback(way):
+def cbf_encoder(way):
     global pos
     pos += way
-    print("pos={}".format(pos))
+    oscmsg = OSC.OSCMessage()
+	oscmsg.setAddress("/enconder")
+	oscmsg.append(pos)
 
 def cbf_reed(gpio,level,tick):
 
@@ -55,7 +57,7 @@ pi.set_mode(24, pigpio.INPUT) #touch sensor
 pi.set_pull_up_down(24, pigpio.PUD_UP)
 cb_touch = pi.callback(24,pigpio.EITHER_EDGE,cbf_touch)
 
-decoder = rotary_encoder.decoder(pi,5,6,callback)
+decoder = rotary_encoder.decoder(pi,5,6,cbf_encoder)
 
 try:
 	while True:
