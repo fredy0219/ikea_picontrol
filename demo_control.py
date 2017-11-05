@@ -8,9 +8,9 @@ c = OSC.OSCClient()
 c.connect(('192.168.2.105',12288))
 
 def cbf_encoder(way):
-    global pos
-    pos += way
-    oscmsg = OSC.OSCMessage()
+	global pos
+	pos += way
+	oscmsg = OSC.OSCMessage()
 	oscmsg.setAddress("/enconder")
 	oscmsg.append(pos)
 
