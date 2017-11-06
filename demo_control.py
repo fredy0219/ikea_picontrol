@@ -11,10 +11,12 @@ def cbf_encoder(way):
 	global pos
 	pos += way
 
+	angle = abs(pos)%360
+
 	try:
 		oscmsg = OSC.OSCMessage()
-		oscmsg.setAddress("/Encoder")
-		oscmsg.append(pos)
+		oscmsg.setAddress("/steering_wheel")
+		oscmsg.append(angle)
 		c.send(oscmsg)
 	except:
 		print("Send data fail.")
@@ -26,8 +28,8 @@ def cbf_reed(gpio,level,tick):
 		print("Reed switch : low ")
 		try:
 			oscmsg = OSC.OSCMessage()
-			oscmsg.setAddress("/Reed")
-			oscmsg.append("LOW")
+			oscmsg.setAddress("/bird_cage")
+			oscmsg.append("on")
 			c.send(oscmsg)
 		except:
 			print("Send reed data fail.")
@@ -36,8 +38,8 @@ def cbf_reed(gpio,level,tick):
 		print("Reed switch : high")
 		try:
 			oscmsg = OSC.OSCMessage()
-			oscmsg.setAddress("/Reed")
-			oscmsg.append("HIGH")
+			oscmsg.setAddress("/bird_cage")
+			oscmsg.append("off")
 			c.send(oscmsg)
 		except:
 			print("Send reed data fail.")
@@ -48,8 +50,8 @@ def cbf_touch(gpio,level,tick):
 		print("Touch sensor : low ")
 		try:
 			oscmsg = OSC.OSCMessage()
-			oscmsg.setAddress("/Touch")
-			oscmsg.append("LOW")
+			oscmsg.setAddress("/black_board")
+			oscmsg.append("on")
 			c.send(oscmsg)
 		except:
 			print("Send touch data fail.")
@@ -58,8 +60,8 @@ def cbf_touch(gpio,level,tick):
 		print("Touch sensor : high")
 		try:
 			oscmsg = OSC.OSCMessage()
-			oscmsg.setAddress("/Touch")
-			oscmsg.append("HIGH")
+			oscmsg.setAddress("/black_board")
+			oscmsg.append("off")
 			c.send(oscmsg)
 		except:
 			print("Send touch data fail.")
