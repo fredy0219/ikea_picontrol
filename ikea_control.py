@@ -50,7 +50,7 @@ def check_black_board(status):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/black_board")
-			oscmsg.append("off")
+			oscmsg.append("on")
 			c.send(oscmsg)
 		except:
 			print("Send touch data fail.")
@@ -60,7 +60,7 @@ def check_black_board(status):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/black_board")
-			oscmsg.append("on")
+			oscmsg.append("off")
 			c.send(oscmsg)
 		except:
 			print("Send touch data fail.")
@@ -72,7 +72,7 @@ def check_magic_hat(status):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/magic_hat")
-			oscmsg.append("off")
+			oscmsg.append("on")
 			c.send(oscmsg)
 		except:
 			print("Send light data fail.")
@@ -82,7 +82,7 @@ def check_magic_hat(status):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/magic_hat")
-			oscmsg.append("on")
+			oscmsg.append("off")
 			c.send(oscmsg)
 		except:
 			print("Send light data fail.")
