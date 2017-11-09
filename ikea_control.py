@@ -10,7 +10,7 @@ pin_black_board = 27
 pin_magic_hat = 22
 
 def cbf_bird_cage(gpio,level,tick):
-	print ("#Tigger log -> ")
+	print "#Tigger log -> "
 	check_bird_cage(level)
 
 def cbf_black_board(gpio,level,tick):
