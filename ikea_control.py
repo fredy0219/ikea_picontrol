@@ -116,8 +116,8 @@ if __name__ == '__main__':
 			temp_milli_time = current_milli_time
 
 	except KeyboardInterrupt:
-	cb_bird_cage.cancel()
-	cb_black_board.cancel()
-	cb_magic_hat.cancel()
-	pi.stop()
+		cb_bird_cage.cancel()
+		cb_black_board.cancel()
+		cb_magic_hat.cancel()
+		pi.stop()
 
