@@ -103,7 +103,7 @@ if __name__ == '__main__':
 	pi.set_mode(pin_black_board, pigpio.INPUT) #touch sensor
 	pi.set_pull_up_down(pin_black_board, pigpio.PUD_UP)
 	pi.set_glitch_filter(pin_black_board, 100)
-	cb_magic_hat = pi.callback(pin_black_board,pigpio.EITHER_EDGE,cbf_touch)
+	cb_magic_hat = pi.callback(pin_black_board,pigpio.EITHER_EDGE,cbf_magic_hat)
 
 	current_milli_time = lambda: int(round(time.time() * 1000))
 	temp_milli_time = current_milli_time
