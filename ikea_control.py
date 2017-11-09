@@ -87,7 +87,7 @@ def check_magic_hat(status):
 
 
 if __name__ == '__main__':
-
+	print("main program start")
 	pi = pigpio.pi()
 
 	pi.set_mode(pin_bird_cage, pigpio.INPUT) #reed switch
@@ -109,11 +109,12 @@ if __name__ == '__main__':
 	temp_milli_time = current_milli_time()
 
 	try:
-		if current_milli_time() - temp_milli_time >3000:
-			check_bird_cage(pi.read(pin_bird_cage))
-			check_black_board(pi.read(pin_bird_cage))
-			check_magic_hat(pi.read(pin_magic_hat))
-			temp_milli_time = current_milli_time()
+		while True:
+			if current_milli_time() - temp_milli_time >3000:
+				check_bird_cage(pi.read(pin_bird_cage))
+				check_black_board(pi.read(pin_bird_cage))
+				check_magic_hat(pi.read(pin_magic_hat))
+				temp_milli_time = current_milli_time()
 
 	except KeyboardInterrupt:
 		cb_bird_cage.cancel()
