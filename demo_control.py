@@ -29,7 +29,7 @@ def cbf_reed(gpio,level,tick):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/bird_cage")
-			oscmsg.append("on")
+			oscmsg.append("off")
 			c.send(oscmsg)
 		except:
 			print("Send reed data fail.")
@@ -39,7 +39,7 @@ def cbf_reed(gpio,level,tick):
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/bird_cage")
-			oscmsg.append("off")
+			oscmsg.append("on")
 			c.send(oscmsg)
 		except:
 			print("Send reed data fail.")
@@ -66,7 +66,7 @@ def cbf_touch(gpio,level,tick):
 		except:
 			print("Send touch data fail.")
 
-
+def check
 pi = pigpio.pi()
 
 pi.set_mode(25, pigpio.INPUT) #reed switch
@@ -81,9 +81,12 @@ cb_touch = pi.callback(24,pigpio.EITHER_EDGE,cbf_touch)
 
 decoder = rotary_encoder.decoder(pi,5,6,cbf_encoder)
 
+current_milli_time = lambda: int(round(time.time() * 1000))
+
 try:
 	while True:
 		# print ("Reed switch at gpio25 : {0} , Touch sensor at gpio24 : {1}".format(pi.read(25),pi.read(24)))
+
 		time.sleep(1)
 
 except KeyboardInterrupt:
