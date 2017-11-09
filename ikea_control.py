@@ -10,18 +10,21 @@ pin_black_board = 27
 pin_magic_hat = 22
 
 def cbf_bird_cage(gpio,level,tick):
+	print ("#Tigger log -> ")
 	check_bird_cage(level)
 
 def cbf_black_board(gpio,level,tick):
+	print ("#Tigger log -> ")
 	check_black_board(level)
 
 def cbf_magic_hat(gpio,level,tick):
+	print ("#Tigger log -> ")
 	check_magic_hat(level)
 
 def check_bird_cage(status):
 
 	if status == 0: # change to low
-		print("Reed switch : low ")
+		print("Bird_cage : low ")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/bird_cage")
@@ -31,7 +34,7 @@ def check_bird_cage(status):
 			print("Send reed data fail.")
 
 	if status == 1: # change to high
-		print("Reed switch : high")
+		print("Bird_cage : high")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/bird_cage")
@@ -43,7 +46,7 @@ def check_bird_cage(status):
 def check_black_board(status):
 
 	if status == 0: # change to low
-		print("Touch sensor : low ")
+		print("Black board : low ")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/black_board")
@@ -53,7 +56,7 @@ def check_black_board(status):
 			print("Send touch data fail.")
 
 	if status == 1: # change to high
-		print("Touch sensor : high")
+		print("Black board : high")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/black_board")
@@ -65,7 +68,7 @@ def check_black_board(status):
 def check_magic_hat(status):
 
 	if status == 0: # change to low
-		print("light sensor : low ")
+		print("Magic sensor : low ")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/magic_hat")
@@ -75,7 +78,7 @@ def check_magic_hat(status):
 			print("Send light data fail.")
 
 	if status == 1: # change to high
-		print("light sensor : high")
+		print("Magic sensor : high")
 		try:
 			oscmsg = OSC.OSCMessage()
 			oscmsg.setAddress("/magic_hat")
