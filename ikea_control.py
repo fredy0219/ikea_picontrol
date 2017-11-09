@@ -106,14 +106,14 @@ if __name__ == '__main__':
 	cb_magic_hat = pi.callback(pin_black_board,pigpio.EITHER_EDGE,cbf_magic_hat)
 
 	current_milli_time = lambda: int(round(time.time() * 1000))
-	temp_milli_time = current_milli_time
+	temp_milli_time = current_milli_time()
 
 	try:
-		if current_milli_time - temp_milli_time >3000:
+		if current_milli_time() - temp_milli_time >3000:
 			check_bird_cage(pi.read(pin_bird_cage))
 			check_black_board(pi.read(pin_bird_cage))
 			check_magic_hat(pi.read(pin_magic_hat))
-			temp_milli_time = current_milli_time
+			temp_milli_time = current_milli_time()
 
 	except KeyboardInterrupt:
 		cb_bird_cage.cancel()
