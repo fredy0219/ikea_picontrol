@@ -6,8 +6,12 @@ c = OSC.OSCClient()
 c.connect(('192.168.2.101',12289))
 
 pin_bird_cage = 23
-pin_black_board = 27
-pin_magic_hat = 22
+
+pin_black_board_1 = 27
+pin_black_board_2 = 22
+
+pin_magic_hat_1 = 15
+pin_magic_hat_2 = 18
 
 def cbf_bird_cage(gpio,level,tick):
 	print "#Tigger log -> "
@@ -15,11 +19,19 @@ def cbf_bird_cage(gpio,level,tick):
 
 def cbf_black_board(gpio,level,tick):
 	print ("#Tigger log -> ")
-	check_black_board(level)
+	if gpio == pin_black_board_1:
+		check_black_board(level & pi.read(pin_black_board_2))
+
+	if gpio == pin_black_board_2:
+		check_black_board(level & pi.read(pin_black_board_1))
 
 def cbf_magic_hat(gpio,level,tick):
 	print ("#Tigger log -> ")
-	check_magic_hat(level)
+	if gpio == pin_magic_hat_1:
+		check_magic_hat(level & pi.read(pin_magic_hat_2))
+
+	if gpio == pin_magic_hat_2:
+		check_magic_hat(level & pi.read(pin_magic_hat_1))
 
 def check_bird_cage(status):
 
@@ -98,30 +110,44 @@ if __name__ == '__main__':
 	pi.set_glitch_filter(pin_bird_cage, 100)
 	cb_bird_cage = pi.callback(pin_bird_cage,pigpio.EITHER_EDGE,cbf_bird_cage)
 
-	pi.set_mode(pin_black_board, pigpio.INPUT) #touch sensor
-	pi.set_pull_up_down(pin_black_board, pigpio.PUD_UP)
-	pi.set_glitch_filter(pin_black_board, 100)
-	cb_black_board = pi.callback(pin_black_board,pigpio.EITHER_EDGE,cbf_black_board)
+	# Black board pin setting
+	pi.set_mode(pin_black_board_1, pigpio.INPUT) #touch sensor
+	pi.set_pull_up_down(pin_black_board_1, pigpio.PUD_UP)
+	pi.set_glitch_filter(pin_black_board_1, 100)
+	cb_black_board_1 = pi.callback(pin_black_board_1,pigpio.EITHER_EDGE,cbf_black_board)
 
-	pi.set_mode(pin_magic_hat, pigpio.INPUT) #touch sensor
-	pi.set_pull_up_down(pin_magic_hat, pigpio.PUD_UP)
-	pi.set_glitch_filter(pin_magic_hat, 100)
-	cb_magic_hat = pi.callback(pin_magic_hat,pigpio.EITHER_EDGE,cbf_magic_hat)
+	pi.set_mode(pin_black_board_2, pigpio.INPUT) #touch sensor
+	pi.set_pull_up_down(pin_black_board_2, pigpio.PUD_UP)
+	pi.set_glitch_filter(pin_black_board_2, 100)
+	cb_black_board_2 = pi.callback(pin_black_board_2,pigpio.EITHER_EDGE,cbf_black_board)
+
+	# Magic hat pin setting
+	pi.set_mode(pin_magic_hat_1, pigpio.INPUT) 
+	pi.set_pull_up_down(pin_magic_hat_1, pigpio.PUD_UP)
+	pi.set_glitch_filter(pin_magic_hat_1, 100)
+	cb_magic_hat_1 = pi.callback(pin_magic_hat_1,pigpio.EITHER_EDGE,cbf_magic_hat)
+
+	pi.set_mode(pin_magic_hat_2, pigpio.INPUT) 
+	pi.set_pull_up_down(pin_magic_hat_2, pigpio.PUD_UP)
+	pi.set_glitch_filter(pin_magic_hat_2, 100)
+	cb_magic_hat_2 = pi.callback(pin_magic_hat_2,pigpio.EITHER_EDGE,cbf_magic_hat)
 
 	current_milli_time = lambda: int(round(time.time() * 1000))
 	temp_milli_time = current_milli_time()
 
 	try:
 		while True:
-			if current_milli_time() - temp_milli_time >3000:
-				check_bird_cage(pi.read(pin_bird_cage))
+			if current_milli_time() - temp_milli_time >100:
+				check_bird_cage(pi.read(pin_bird_cage) && )
 				check_black_board(pi.read(pin_bird_cage))
 				check_magic_hat(pi.read(pin_magic_hat))
 				temp_milli_time = current_milli_time()
 
 	except KeyboardInterrupt:
 		cb_bird_cage.cancel()
-		cb_black_board.cancel()
-		cb_magic_hat.cancel()
+		cb_black_board_1.cancel()
+		cb_black_board_2.cancel()
+		cb_magic_hat_2.cancel()
+		cb_magic_hat_2.cancel()
 		pi.stop()
 
